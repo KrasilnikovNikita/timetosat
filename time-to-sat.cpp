@@ -55,6 +55,9 @@ int main()
         oss << iss.rdbuf();
         strobj = oss.str();
         strobj.erase(0, 1);
+
+
+
         if (first == "dms")
         {
             std::stringstream ss(strobj);
