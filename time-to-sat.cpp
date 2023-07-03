@@ -43,23 +43,17 @@ int main()
     double sat_lone = 0;
     double user_alt = 0;
     std::vector<double> numbers{ user_lat, user_lon, sat_lone, user_alt };
-    std::cout << "2 flags - degrees and dms\n" << "Example : degrees 37.5 or dms 37'30'00\n1)User latitude\n2)User longitude\n3)Space vehicle standing point longitude\n4)User height above sea level. May be missed\n";
-    for (int i = 0; i < 4; i++)
+    std::cout << "1-degrees/minutes/seconds\n2-degrees\n";
+    int choice;
+    std::cin >> choice;
+    std::cin.ignore();
+    if (choice == 1)
     {
-        std::string strobj;
-        std::getline(std::cin, strobj);
-        std::string first;
-        std::istringstream iss{ strobj };
-        iss >> first;
-        std::ostringstream oss;
-        oss << iss.rdbuf();
-        strobj = oss.str();
-        strobj.erase(0, 1);
-
-
-
-        if (first == "dms")
+        std::cout << "Example : degrees / minutes / seconds 37'30'00\n1)User latitude\n2)User longitude\n3)Space vehicle standing point longitude\n4)User height above sea level.May be missed\n";
+        for (int i = 0; i < 4; i++)
         {
+            std::string strobj;
+            std::getline(std::cin, strobj);
             std::stringstream ss(strobj);
             std::string degrees, minutes, seconds;
             std::getline(ss, degrees, '\'');
@@ -71,13 +65,17 @@ int main()
             degr = degr + min + sec;
             numbers[i] = degr;
         }
-        else if (first == "degrees")
+    }
+    else if (choice == 2)
+    {
+        std::cout << "Example : degrees 55.5\n1)User latitude\n2)User longitude\n3)Space vehicle standing point longitude\n4)User height above sea level.May be missed\n";
+        for (int i = 0; i < 4; i++)
         {
-            double num;
-            num = std::stod(strobj);
-            numbers[i] = num;
+            double degrees;
+            std::cin >> degrees;
+            numbers[i] = degrees;
         }
     }
+
     std::cout << time_to_sat(numbers[0], numbers[1], numbers[2], numbers[3]);
 }
-
